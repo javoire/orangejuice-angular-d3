@@ -1,0 +1,38 @@
+.menu {
+  width: 280px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+}
+
+.content {
+  left: 280px;
+  right: 0;
+  top: 0;
+  position: absolute;
+  height: 100%;
+
+  .content-inner {
+    box-sizing: border-box;
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+    top: 80px + 30px;
+    right: 30px;
+  }
+}
+
+.menu, .content {
+  header {
+    margin-top: 30px;
+    margin-left: @content-padding;
+    margin-right: @content-padding;
+    height: 50px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+
+    h1, h2 {
+      font-size: 30px;
+    }
+  }
+}

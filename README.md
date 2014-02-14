@@ -1,0 +1,1 @@
+Basically [this app](https://github.com/javoire/NodeAngularD3) ported to [Orangejuice](https://github.com/jpettersson/orangejuice) based on [this template](https://github.com/jpettersson/orangejuice-ng-template).

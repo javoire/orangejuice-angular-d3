@@ -1,0 +1,58 @@
+.menu {
+  nav {
+    padding-top: 20px;
+    ul {
+      li {
+        a {
+          transition: color 0.2s;
+          font-size: 18px;
+          display: block;
+          padding-top: 8px;
+          padding-bottom: 8px;
+          padding-left: @content-padding;
+          padding-right: @content-padding;
+          // color: 
+
+          &:hover {
+            color: @primary-blue;
+            text-decoration: none;
+          }
+
+          &.active {
+            color: @primary-blue;
+            border-left: 4px solid @primary-blue;
+            padding-left: @content-padding - 4px;
+          }
+        }
+
+        ul { // subnav
+          border-left: 4px solid darken(@primary-blue, 10);
+          background: rgba(0,0,0,0.02);
+          max-height: 200px; // lol, for the height animation to work, not awesome
+          overflow: hidden;
+
+          &.ng-hide-remove {
+            transition: all ease-out 0.3s;
+          }
+
+          &.ng-hide {
+            display: block !important;
+            max-height: 0;
+          }
+
+          &.ng-hide-add, &.ng-hide-remove {
+            display: block!important;
+          }
+
+          li {
+            a {
+              font-size: 14px;
+              padding-bottom: 0;
+            }
+            &:last-child a { padding-bottom: 8px; }
+          }
+        }
+      }
+    }
+  }
+}

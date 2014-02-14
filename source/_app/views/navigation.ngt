@@ -1,0 +1,10 @@
+<ul>
+  <li ng-repeat="navItem in navList">
+    <a ng-class="{active:navItem.active}" href="#{{navItem.url}}">{{navItem.title}}</a>
+    <ul ng-show="navItem.active &amp;&amp; navItem.subNav">
+      <li ng-repeat="subNavItem in navItem.subNav">
+        <a href="#{{subNavItem.url}}">{{subNavItem.title}}</a>
+      </li>
+    </ul>
+  </li>
+</ul>
