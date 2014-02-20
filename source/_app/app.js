@@ -8,19 +8,19 @@
     'ngResource',
     // 'ngSanitize',
     'ngRoute',
-    // 'ngAnimate',
+    'ngAnimate',
     'd3',
     'app.directives',
     '_app/views/navigation.ngt',
     '_app/views/companies.ngt',
-    '_app/views/main.ngt',
+    '_app/views/home.ngt',
     '_app/views/users.ngt',
     '_app/views/donut.ngt'
   ])
     .config(function ($routeProvider) {
       $routeProvider
         .when('/', {
-          templateUrl: '_app/views/main.ngt',
+          templateUrl: '_app/views/home.ngt',
           controller: 'MainCtrl'
         })
         .when('/donut', {

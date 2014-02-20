@@ -11,11 +11,7 @@ angular.module('app.directives')
         d3Service.d3().then(function(d3) {
           var svg = d3.select(element[0])
             .append('svg')
-            .style('position', 'absolute')
-            .style('width', '100%')
-            .style('height', '100%')
-            .style('left', '0')
-            .style('top', '0'); // css perhaps?
+            .style('height', '900px');
 
           $window.onresize = function() {
             scope.$apply();
@@ -23,12 +19,6 @@ angular.module('app.directives')
 
           scope.$watch(function() {
             return angular.element($window)[0].innerWidth;
-          }, function() {
-            scope.render(scope.data);
-          });
-
-          scope.$watch(function() {
-            return angular.element($window)[0].innerHeight;
           }, function() {
             scope.render(scope.data);
           });

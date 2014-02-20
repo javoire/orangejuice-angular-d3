@@ -1,32 +1,36 @@
 .menu {
   nav {
-    padding-top: 20px;
+    > ul {
+      > li {
+        > a {
+          padding-top: 13px;
+          padding-bottom: 13px;
+        }
+      }
+    }
     ul {
       li {
         a {
-          transition: color 0.2s;
           font-size: 18px;
           display: block;
-          padding-top: 8px;
-          padding-bottom: 8px;
-          padding-left: @content-padding;
-          padding-right: @content-padding;
-          // color: 
+          padding-left: 30px;
+          padding-right: 30px;
 
           &:hover {
-            color: @primary-blue;
+            transition: color @transition-duration;
+            color: @primary-accent;
             text-decoration: none;
           }
 
           &.active {
-            color: @primary-blue;
-            border-left: 4px solid @primary-blue;
-            padding-left: @content-padding - 4px;
+            transition: none;
+            color: @white;
+            background-color: @primary-accent;
           }
         }
 
         ul { // subnav
-          border-left: 4px solid darken(@primary-blue, 10);
+          border-right: 4px solid @primary-accent;
           background: rgba(0,0,0,0.02);
           max-height: 200px; // lol, for the height animation to work, not awesome
           overflow: hidden;
@@ -47,7 +51,8 @@
           li {
             a {
               font-size: 14px;
-              padding-bottom: 0;
+              padding-bottom: 8px;
+              padding-top: 8px;
             }
             &:last-child a { padding-bottom: 8px; }
           }
