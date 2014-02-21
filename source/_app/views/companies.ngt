@@ -3,6 +3,6 @@
     <h2>Companies</h2>
   </header>
   <div class="content-inner">
-    
+    <div rickshaw-line></div>
   </div>
 </div>

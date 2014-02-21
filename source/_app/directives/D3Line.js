@@ -11,14 +11,13 @@ angular.module('app.directives')
       },
       link: function(scope, ele, attrs) {
         d3Service.d3().then(function (d3) {
-
-
           var renderTimeout;
           var margin = parseInt(attrs.margin) || 0;
 
           var svg = d3.select(ele[0])
             .append('svg')
-            .style('width', '100%');
+            .style('width', '100%')
+            .style('height', '500px');
  
           $window.onresize = function() {
             scope.$apply();
@@ -38,9 +37,12 @@ angular.module('app.directives')
             svg.selectAll('*').remove();
  
             if (!data) { return; }
-
+            
+            // move this to the service getting the data
             var parseDate = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
-            var getDateString = function(date) { return date.getYear() + " " + date.getMonth() + " " + date.getDay(); }
+            var getDateString = function(date) { 
+              return date.getFullYear() + "-" + ("0"+(date.getMonth()+1)).slice(-2) + "-" + ("0"+date.getDate()).slice(-2);
+            }
             var prevDate = null;
             var i = -1;
             fData = [];
@@ -58,16 +60,18 @@ angular.module('app.directives')
               };
               prevDate = d.date;
             });
+            console.log('data', fData);
 
-            console.log(fData);
 
             var width = svg.style('width').replace('px', '');
             var height = svg.style('height').replace('px', '');
 
             var x = d3.time.scale()
+                .domain([fData[0].date, fData[fData.length-1].date])
                 .range([0, width]);
 
             var y = d3.scale.linear()
+                .domain([0, 40]) // hardcode for now
                 .range([height, 0]);
 
             var xAxis = d3.svg.axis()
@@ -79,11 +83,11 @@ angular.module('app.directives')
                 .orient('left');
 
             var line = d3.svg.line()
-                .x(function(d) { return x(d.dateString); })
+                .x(function(d) { return x(d.date); })
                 .y(function(d) { return y(d.count); });
 
-            x.domain(d3.extent(fData, function(d) { return d.dateString; }));
-            y.domain(d3.extent(fData, function(d) { return d.count; }));
+            // x.domain(d3.extent(fData, function(d) { return d.dateString; }));
+            // y.domain(d3.extent(fData, function(d) { return d.count; }));
 
             svg.append("g")
                 .attr("class", "x axis")
@@ -103,6 +107,7 @@ angular.module('app.directives')
             svg.append("path")
                 .datum(fData)
                 .attr("class", "line")
+                .attr("stroke-width", "20")
                 .attr("d", line);
           };
         });
