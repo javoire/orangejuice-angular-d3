@@ -1,8 +1,3 @@
-<div class="main">
-  <header>
-    <h2>Donut yo</h2>
-  </header>
-  <div class="content-inner">
-    <div d3-donut class="donut-chart" data="donutData"></div>
-  </div>
+<div class="content-inner">
+  <div d3-donut class="donut-chart" data="donutData"></div>
 </div>

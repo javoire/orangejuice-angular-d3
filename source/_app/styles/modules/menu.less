@@ -1,29 +1,4 @@
 .menu {
-  background-color: #eee;
-  header {
-    position: relative;
-    &:hover {
-      cursor: pointer;
-
-      .menu-toggle {
-        opacity: 1;
-      }
-    }
-    .menu-toggle {
-      transition: opacity @transition-duration;
-      opacity: 0;
-      background-color: rgba(0,0,0,0.8);
-      color: white;
-      text-align: center;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-
-      i {
-        font-size: 3em;
-      }
-    }
-  }
+  background-color: @black;
+  z-index: 1000;
 }

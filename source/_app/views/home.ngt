@@ -1,15 +1,5 @@
-<div class="main">
-  <header>
-    <h2>Summary</h2>
-  </header>
-  <div class="content-inner">
-    <div class="summary">
-<!--       <div class="summary-companies">
-        <div d3-bars class="companies-bars" data="companies"></div>
-        <div class="companies-bars-legend"></div>
-      </div>
- -->   
-      <div d3-companies-summary data="companies"></div>
-    </div>
+<div class="content-inner">
+  <div class="summary">
+    <div d3-companies-summary data="companies"></div>
   </div>
 </div>

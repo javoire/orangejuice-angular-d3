@@ -1,8 +1,3 @@
-<div class="main">
-  <header>
-    <h2>Users</h2>
-  </header>
-  <div class="content-inner">
-    <div d3-line data="users"></div>
-  </div>
+<div class="content-inner">
+  <div d3-line data="users"></div>
 </div>

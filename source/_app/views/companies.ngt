@@ -1,8 +1,3 @@
-<div class="main">
-  <header>
-    <h2>Companies</h2>
-  </header>
-  <div class="content-inner">
-    <rickshaw-line></rickshaw-line>
-  </div>
+<div class="content-inner">
+  <rickshaw-line></rickshaw-line>
 </div>

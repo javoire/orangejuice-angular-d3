@@ -11,14 +11,20 @@
   </head>
   <body ng-app="app" ng-controller="MainCtrl">
    <div class="menu">
-      <header>
+<!--       <header>
         <h1 class="text-muted">OJ-Angular-D3</h1>
         <div ng-click="toggleMenu()" class="menu-toggle">
           <i class="fa fa-caret-left" data-class-minimize="fa-caret-left" data-class-maximize="fa-caret-right"></i>
         </div>
-      </header>
+      </header> -->
       <nav navigation class="ze-nav-yo"></nav>
     </div>
-    <div ng-view=""></div>
+    <div class="main">
+      <header>
+        <div ng-click="toggleMenu()" class="menu-btn"><i class="fa fa-bars" data-class-minimized="fa-bars" data-class-maximized="fa-times"></i></div>
+        <h2>{{pageTitle}}</h2>
+      </header>
+      <div ng-view=""></div>
+    </div>
   </body>
 </html>

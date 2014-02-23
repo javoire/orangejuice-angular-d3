@@ -63,7 +63,7 @@ angular.module('app.directives')
               .attr('transform', function(d, i) {
                 return 'rotate('+angle(i) * 180 / Math.PI +',0,0)';
               })
-              // .attr('fill', function(d, i) { return color(i); })
+              .attr('fill', 'white')
               .style('font-size', function() { return containerHeight / data.length * 1.8; })
               .text(function(d) { return d.name; });
           };

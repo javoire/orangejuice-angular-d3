@@ -1,6 +1,7 @@
 .menu {
   nav {
     > ul {
+      padding-top: 13px;
       > li {
         > a {
           padding-top: 13px;
@@ -15,6 +16,8 @@
           display: block;
           padding-left: 30px;
           padding-right: 30px;
+          text-align: right;
+          margin-right: 4px;
 
           &:hover {
             transition: color @transition-duration;
@@ -24,14 +27,16 @@
 
           &.active {
             transition: none;
-            color: @white;
-            background-color: @primary-accent;
+            color: @primary-accent;
+            border-right: 4px solid @primary-accent;
+            margin-right: 0;
+            // background-color: @primary-accent;
           }
         }
 
         ul { // subnav
           border-right: 4px solid @primary-accent;
-          background: rgba(0,0,0,0.02);
+          // background: rgba(0,0,0,0.02);
           max-height: 200px; // lol, for the height animation to work, not awesome
           overflow: hidden;
 
