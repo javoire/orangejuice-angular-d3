@@ -1,4 +1,10 @@
 @menu-width: 280px;
+@menu-width-minimized: @header-height + @content-padding * 2;
+@menu-speed: 0.1s;
+
+.main, .menu {
+  transition: width @menu-speed, left @menu-speed;
+}
 
 .menu {
   width: @menu-width;
@@ -6,6 +12,19 @@
   left: 0;
   top: 0;
   height: 100%;
+  overflow: hidden;
+
+  &.menu-minimized {
+    width: @menu-width-minimized;
+
+    nav, header h1 {
+      opacity: 0;
+    }
+  }
+
+  nav, header h1 {
+    transition: opacity @menu-speed;
+  }
 }
 
 .main {
@@ -16,6 +35,9 @@
   right: 0;
   overflow: scroll;
 
+  &.menu-minimized {
+    left: @menu-width-minimized;
+  }
   // .content-inner {
   //   box-sizing: border-box;
   //   position: absolute;
@@ -47,7 +69,7 @@
 
 .menu, .main {
   header, .menu-toggle i {
-    height: 30px;
+    height: @header-height;
     line-height: 30px;
     padding: @content-padding/1.2 @content-padding;
   }

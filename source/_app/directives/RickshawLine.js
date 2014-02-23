@@ -1,17 +1,29 @@
 'use strict';
 
 angular.module('app.directives')
-  .directive('RickshawLine', function ($window, $timeout, RickshawService) {
+  .directive('rickshawLine', function ($document, $window, $timeout, RickshawService) {
     return {
-      restrict: 'A',
+      restrict: 'E',
       scope: {
-        data: '=',
-        label: '@',
-        onClick: '&'
+        data: '='
       },
-      link: function(scope, ele, attrs) {
+      link: function(scope, element, attrs) {
         RickshawService.Rickshaw().then(function (Rickshaw) {
-          console.log('var');
+          console.log(element);
+          var graph = new Rickshaw.Graph({
+            element: element,
+            series: [
+              {
+                color: 'steelblue',
+                data: [ { x: 0, y: 23}, { x: 1, y: 15 }, { x: 2, y: 79 } ]
+              }, {
+                color: 'lightblue',
+                data: [ { x: 0, y: 30}, { x: 1, y: 20 }, { x: 2, y: 64 } ]
+              }
+            ]
+          });
+
+          graph.render();
         });
       }
     };

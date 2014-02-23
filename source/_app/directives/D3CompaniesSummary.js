@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('app.directives')
-  .directive('d3CompaniesSummary', function($window, $timeout, d3Service, Colors) {
+  .directive('d3CompaniesSummary', function($window, $timeout, d3Service) {
     return {
       restrict: 'A',
       scope: {
         data: '=' // for the $watch
       },
       link: function (scope, element, attrs) {
-        d3Service.d3().then(function(d3) {
+        d3Service.d3().then(function (d3) {
           var svg = d3.select(element[0])
             .append('svg')
             .style('height', '900px');

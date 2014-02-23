@@ -2,7 +2,7 @@
 
 angular.module('Rickshaw', ['d3'])
   .factory('RickshawService', function($document, $window, $q, $rootScope) {
-    alert('text');
+    console.log('RicskawService');
     var d = $q.defer(),
         RickshawService = {
           Rickshaw: function() { return d.promise; }
