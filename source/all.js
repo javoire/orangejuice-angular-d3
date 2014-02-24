@@ -1,3 +1,4 @@
+//= include '../bower_components/jquery/dist/jquery.js'
 //= include '../bower_components/angular/angular.js'
 //= include '../bower_components/angular-resource/angular-resource.js'
 //= include '../bower_components/angular-route/angular-route.js'

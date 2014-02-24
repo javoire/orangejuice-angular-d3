@@ -5,7 +5,13 @@ angular.module('app.directives')
     return {
       templateUrl: '_app/views/navigation.ngt',
       restrict: 'A',
+      controller: function() {
+        this.toggle = function() {
+          alert('toggle');
+        }
+      },
       link: function(scope, element, attrs) {
+        // move this to Ctrl or some config file ish... 
         scope.navList = [
           {
             url: '/',
