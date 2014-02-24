@@ -7,14 +7,15 @@ angular.module('app.directives')
       templateUrl: '_app/views/templates/rickshaw-line.ngt',
       transclude: true,
       scope: {
-        data: '=',
-        title: '='
+        source: '='
       },
       link: function(scope, element, attrs) {
         // double promise?! this should go in RickshawService.. but le how
         d3Service.d3().then(function (d3) {
           RickshawService.Rickshaw().then(function (Rickshaw) {
             var graph, data, container;
+
+            scope.title = scope.source.title;
 
             data = [{x:0, y:0}];
             container = element.find('.viz-container');
@@ -43,8 +44,8 @@ angular.module('app.directives')
             $window.onresize = function() {
               scope.$apply();
             };
-            scope.$watch('data', function(_data) {
-              data = _data; console.log('data watched', data);
+            scope.$watch('source', function(source) {
+              data = source.data; console.log('data watched', data);
               if (!graph) {
                 setupGraph(data);
                 graph.render();

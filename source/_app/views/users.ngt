@@ -1,3 +1,3 @@
 <div class="content-inner">
-  <rickshaw-line class="viz-component" data="users" title="title"></rickshaw-line>
+  <rickshaw-line class="viz-component" source="users"></rickshaw-line>
 </div>
