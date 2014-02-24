@@ -1,14 +1,7 @@
 'use strict';
 
 angular.module('app')
-  .controller('MainCtrl', function ($rootScope, $scope, $q, Companies) {
-    $rootScope.pageTitle = 'Summary'; // hmmm.....
-
-    Companies.then(function (data) {
-      console.log('MainCtrl got the json from factory', data);
-      $scope.companies = data;
-    });
-
+  .controller('AppCtrl', function ($rootScope, $scope) {
     // not ze angular way?
     $scope.toggleMenu = function() {
       console.log('var');

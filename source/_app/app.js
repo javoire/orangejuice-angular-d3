@@ -20,11 +20,11 @@
       $routeProvider
         .when('/', {
           templateUrl: '_app/views/home.ngt',
-          controller: 'MainCtrl'
+          controller: 'HomeCtrl'
         })
         .when('/donut', {
           templateUrl: '_app/views/donut.ngt',
-          controller: 'MainCtrl'
+          controller: 'HomeCtrl'
         })
         .when('/companies', {
           templateUrl: '_app/views/companies.ngt',

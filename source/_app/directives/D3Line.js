@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app.directives')
-  .directive('d3Line', function ($window, $timeout, d3Service, Colors) {
+  .directive('d3Line', function ($window, $timeout, d3Service) {
     return {
       restrict: 'A',
       scope: {
