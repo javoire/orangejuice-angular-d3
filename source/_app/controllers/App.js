@@ -2,6 +2,42 @@
 
 angular.module('app')
   .controller('AppCtrl', function ($rootScope, $scope) {
+    $scope.menu = [ // move this to some config file ish... 
+      {
+        title: 'Summary',
+        state: 'home'
+      },
+      {
+        title: 'Companies',
+        state: 'companies',
+        submenu: [{
+          title: 'Industries',
+          state: 'companies.industries'
+        }
+        // ,{
+        //   title: 'Programmes',
+        //   state: 'companies.programmes'
+        // },{
+        //   title: 'Offers',
+        //   state: 'companies.offers'
+        // },{
+        //   title: 'Priorities',
+        //   state: 'companies.priorities'
+        // }
+        ]
+      },
+      {
+        title: 'Users',
+        state: 'users',
+        submenu: [{
+          title: 'Bookmarks',
+          state: 'users/bookmarks'
+        },{
+          title: 'Interests',
+          state: 'users/interests'
+        }]
+      }
+    ];
     
     // Globals
     //-------------------------------

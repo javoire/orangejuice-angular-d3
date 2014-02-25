@@ -1,5 +1,6 @@
-//= include '../bower_components/jquery/dist/jquery.js'
+//= include '../bower_components/jquery/jquery.js'
 //= include '../bower_components/angular/angular.js'
+//= include '../bower_components/angular-ui-router/release/angular-ui-router.js'
 //= include '../bower_components/angular-resource/angular-resource.js'
 //= include '../bower_components/angular-route/angular-route.js'
 //= include '../bower_components/angular-animate/angular-animate.js'

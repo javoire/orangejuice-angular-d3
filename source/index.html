@@ -11,7 +11,9 @@
   </head>
   <body ng-app="app" ng-controller="AppCtrl">
     <div class="menu">
-      <nav navigation class="ze-nav-yo"></nav>
+      <nav>
+        <ul menu="menu" class="ze-nav-yo"></ul>
+      </nav>
     </div>
     <div class="main">
       <header class="main-header">
@@ -19,7 +21,7 @@
         <h2>{{pageTitle}}</h2>
       </header>
       <div class="main-content">
-        <div ng-view=""></div>
+        <div ui-view></div>
       </div>
     </div>
   </body>

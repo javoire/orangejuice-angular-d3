@@ -1,3 +1,4 @@
 <div class="content-inner">
   <d3-line class="viz-component" source="users"></d3-line>
+  <d3-line class="viz-component" source="users"></d3-line>
 </div>
