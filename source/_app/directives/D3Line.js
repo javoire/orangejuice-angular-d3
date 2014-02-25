@@ -12,8 +12,6 @@ angular.module('app.directives')
         d3Service.d3().then(function (d3) {
           var width, height, svg, container, margin = 10;
 
-          scope.title = scope.source.title;
-
           container = element.find('.chart');
 
           svg = d3.select(container[0])
@@ -27,6 +25,7 @@ angular.module('app.directives')
             scope.$apply();
           };
           scope.$watch('source', function(source) {
+            scope.title = source.title;
             scope.render(source.data);
           }, true)
           scope.$watch(function() {
