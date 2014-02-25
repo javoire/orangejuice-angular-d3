@@ -3,113 +3,68 @@
 angular.module('app.directives')
   .directive('d3Line', function ($window, $timeout, d3Service) {
     return {
-      restrict: 'A',
+      restrict: 'E',
+      templateUrl: '_app/views/templates/d3-line.ngt',
       scope: {
-        data: '=',
-        label: '@',
-        onClick: '&'
+        source: '=',
       },
-      link: function(scope, ele, attrs) {
+      link: function(scope, element, attrs) {
         d3Service.d3().then(function (d3) {
-          var renderTimeout;
-          var margin = parseInt(attrs.margin) || 0;
+          var width, height, svg, container, margin = 10;
 
-          var svg = d3.select(ele[0])
+          scope.title = scope.source.title;
+
+          container = element.find('.chart');
+
+          svg = d3.select(container[0])
             .append('svg')
-            .style('width', '100%')
-            .style('height', '500px');
- 
+            .attr('height', '450px');
+
+          console.log(svg);
+
+          // modularize this watch block..... elsewhere
           $window.onresize = function() {
             scope.$apply();
           };
- 
+          scope.$watch('source', function(source) {
+            scope.render(source.data);
+          }, true)
           scope.$watch(function() {
-            return angular.element($window)[0].innerWidth;
+            return container.width();
           }, function() {
-            scope.render(scope.data);
+            scope.render(scope.source.data);
           });
- 
-          scope.$watch('data', function(newData) {
-            scope.render(newData);
-          }, true);
- 
+
           scope.render = function(data) {
             svg.selectAll('*').remove();
- 
-            if (!data) { return; }
-            
-            // move this to the service getting the data
-            var parseDate = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
-            var getDateString = function(date) { 
-              return date.getFullYear() + "-" + ("0"+(date.getMonth()+1)).slice(-2) + "-" + ("0"+date.getDate()).slice(-2);
-            }
-            var prevDate = null;
-            var i = -1;
-            fData = [];
-            data.forEach(function(d) {
-              d.date = parseDate(d.created_at);
-              if (prevDate != null && getDateString(d.date) == getDateString(prevDate)) { // count registrations on this day
-                fData[i].count++;
-              } else { // new day
-                fData.push({
-                  date: d.date,
-                  dateString: getDateString(d.date),
-                  count: 1
-                })
-                i++; // increase for every new day
-              };
-              prevDate = d.date;
-            });
-            console.log('data', fData);
 
+            if (!data) return;
 
-            var width = svg.style('width').replace('px', '');
-            var height = svg.style('height').replace('px', '');
+            width = container.outerWidth();
+            height = svg.style('height').replace('px', '');
 
-            var x = d3.time.scale()
-                .domain([fData[0].date, fData[fData.length-1].date])
-                .range([0, width]);
+            svg.attr('width', width);
 
-            var y = d3.scale.linear()
-                .domain([0, 40]) // hardcode for now
-                .range([height, 0]);
+            var Ymax = d3.max(data, function(d) { return d.count; })
+            var x = d3.scale.linear().domain([0, data.length]).range([margin, width-margin]); // map relationship between input data and screen-coords
+            var y = d3.scale.linear().domain([0, Ymax]).range([height-margin, margin]);
 
-            var xAxis = d3.svg.axis()
-                .scale(x)
-                .orient('bottom');
+            var line = d3.svg.line() // convert data values to actual screen cords, using the mapping defined above... x and y
+              .x(function(d, i) { return x(i); }) // smooth it out by checking difference between next and prev value? (angle...)
+              .y(function(d, i) { return y(d.count); });
 
-            var yAxis = d3.svg.axis()
-                .scale(y)
-                .orient('left');
+            svg.append('path')
+              .attr('d', line(data))
+              .attr('class', 'd3-line');
 
-            var line = d3.svg.line()
-                .x(function(d) { return x(d.date); })
-                .y(function(d) { return y(d.count); });
-
-            // x.domain(d3.extent(fData, function(d) { return d.dateString; }));
-            // y.domain(d3.extent(fData, function(d) { return d.count; }));
-
-            svg.append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + height + ")")
-                .call(xAxis);
-
-            svg.append("g")
-                .attr("class", "y axis")
-                .call(yAxis)
-              .append("text")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 6)
-                .attr("dy", ".71em")
-                .style("text-anchor", "end")
-                .text("Price ($)");
-
-            svg.append("path")
-                .datum(fData)
-                .attr("class", "line")
-                .attr("stroke-width", "20")
-                .attr("d", line);
-          };
+            svg.append('g').selectAll('circle')
+              .data(data)
+              .enter().append('circle')
+                .attr('cx', function(d, i) { return x(i) } )
+                .attr('cy', function(d) { return y(d.count)} )
+                .attr('r', 5)
+                .attr('class', 'd3-line-circle');
+          }
         });
       }
     };

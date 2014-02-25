@@ -15,10 +15,8 @@ angular.module('app.directives')
           RickshawService.Rickshaw().then(function (Rickshaw) {
             var graph, data, container;
 
-            scope.title = scope.source.title;
-
-            data = [{x:0, y:0}];
-            container = element.find('.viz-container');
+            container = element.find('.chart');
+            xAxis = element.find('.x-axis');
 
             function setupGraph(data) {
               graph = new Rickshaw.Graph({
@@ -28,27 +26,48 @@ angular.module('app.directives')
                 height: 500,
                 series: [
                   {
-                    color: 'steelblue',
+                    color: '#FF6E00',
                     data: data
                   }
                 ]
               });
+              graph.render();
 
               // var hoverDetail = new Rickshaw.Graph.HoverDetail({
               //   graph: graph,
               //   xFormatter: function(x) { return x + " lol" },
               //   yFormatter: function(y) { return y + " st" }
               // });
+
+              var x_ticks = new Rickshaw.Graph.Axis.X({
+                graph: graph,
+                orientation: 'bottom',
+                element: xAxis[0],
+                pixelsPerTick: 5,
+                tickFormat: function(n) {
+                  var map, prevMonth, month, i;
+
+                  map = {};
+                  scope.source.data.forEach(function(d) {
+                    month = d.date.split('-')[1];
+                    if (month != prevMonth && prevMonth !== undefined) {
+                      map[d.x] = month;
+                    };
+                    prevMonth = month;
+                  })
+                  console.log(map);
+                  return map[n];
+                }
+              });
             }
 
             $window.onresize = function() {
               scope.$apply();
             };
             scope.$watch('source', function(source) {
-              data = source.data; console.log('data watched', data);
+              data = source.data;
               if (!graph) {
                 setupGraph(data);
-                graph.render();
               }
             }, true);
             scope.$watch(function() {

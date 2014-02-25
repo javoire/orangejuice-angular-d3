@@ -17,12 +17,12 @@
   &.menu-maximized {
     left: 0;
 
-    nav, header h1 {
+    nav {
       opacity: 1;
     }
   }
 
-  nav, header h1 {
+  nav {
     transition: opacity @menu-speed;
   }
 }
@@ -36,12 +36,12 @@
   overflow: scroll;
 
   &.menu-maximized {
-    header {
+    .main-header {
       margin-left: @menu-width;
     }
   }
 
-  header {
+  .main-header {
     transition: margin-left @menu-speed;
   }
   // .content-inner {
@@ -52,15 +52,6 @@
   //   top: 80px + 30px;
   //   right: 30px;
   // }
-}
-
-.menu {
-  header {
-    h1 {
-      color: #fff;
-      text-align: center;
-    }
-  }
 }
 
 .main {

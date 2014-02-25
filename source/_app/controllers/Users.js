@@ -7,7 +7,7 @@ angular.module('app')
     Users.then(function (data) {
       console.log('UsersCtrl got the json from Users service', data);
       $scope.users = {
-        title : "User signup.....",
+        title : "User signup",
         data: data
       };
     });
