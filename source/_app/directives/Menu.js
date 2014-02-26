@@ -34,11 +34,6 @@ angular.module('app.directives')
         //   scope.$apply;
         // });
 
-        // scope.$on('$routeChangeSuccess', function() {
-        //   // scope.currentRoute = $location.path() === scope.item.state ? true : false;
-        //   if (scope.currentRoute) scope.$apply;
-        // });
-
         $compile(element.contents())(scope); // so $submenu actually compiles with the menu directive...
       }
     }
