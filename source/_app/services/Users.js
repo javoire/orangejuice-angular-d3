@@ -4,39 +4,14 @@ angular.module('app')
   .factory('Users', function($q, $http) {
     var d = $q.defer();
 
-    $http.get('/users.json').then(function(inputData) {
-      var data, i, prevDate;
+    $http.get('/users.json').then(function(users) { // user signup per day
+      var data;
 
-      console.log('factory loaded json inputData:', inputData);
-      function parseDate(input) {
-        var parts = input.split('-');
-        parts[2] = parts[2].split(' ')[0] // throw away the time part...
-        // return new Date(parts[0], parts[1]-1, parts[2]); // Note: months are 0-based
-        return parts.join("-")
-      }
+      data = users.data.map(function(d) { // index 1 needs to be integer and not string.. or just change input data lol
+        return [d[0], parseInt(d[1])]
+      })
 
-      // reformat data, count signups per day
-      data = [];
-      i = -1;
-      prevDate = null;
-
-      // flawed, ignores days with 0 signups...
-      inputData.data.forEach(function(d) {
-        if (prevDate != null && parseDate(d.created_at) == parseDate(prevDate)) { // count registrations on this day
-          data[i].y++;
-          data[i].count++;
-        } else { // next day
-          data.push({
-            x: i+1, // tmp for rickshaw...
-            y: 1, // tmp for rickshaw...
-            count: 1,
-            dateString: parseDate(d.created_at),
-            date: d.created_at,
-          })
-          i++; // next day
-        };
-        prevDate = d.created_at;
-      });
+      // TODO: insert rows days when signups are 0..... its misssiiiing
 
       d.resolve(data);
     });
