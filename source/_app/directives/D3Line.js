@@ -18,8 +18,6 @@ angular.module('app.directives')
             .append('svg')
             .attr('height', '450px');
 
-          console.log(svg);
-
           // modularize this watch block..... elsewhere
           $window.onresize = function() {
             scope.$apply();
@@ -44,13 +42,14 @@ angular.module('app.directives')
 
             svg.attr('width', width);
 
-            var Ymax = d3.max(data, function(d) { return d.count; })
+            var Ymax = d3.max(data, function(d) { console.log(d[1]);return d[1]; })
+            console.log(Ymax);
             var x = d3.scale.linear().domain([0, data.length]).range([margin, width-margin]); // map relationship between input data and screen-coords
             var y = d3.scale.linear().domain([0, Ymax]).range([height-margin, margin]);
 
             var line = d3.svg.line() // convert data values to actual screen cords, using the mapping defined above... x and y
               .x(function(d, i) { return x(i); }) // smooth it out by checking difference between next and prev value? (angle...)
-              .y(function(d, i) { return y(d.count); });
+              .y(function(d, i) { return y(d[1]); });
 
             svg.append('path')
               .attr('d', line(data))
@@ -60,7 +59,7 @@ angular.module('app.directives')
               .data(data)
               .enter().append('circle')
                 .attr('cx', function(d, i) { return x(i) } )
-                .attr('cy', function(d) { return y(d.count)} )
+                .attr('cy', function(d) { return y(d[1])} )
                 .attr('r', 5)
                 .attr('class', 'd3-line-circle');
           }

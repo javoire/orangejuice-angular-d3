@@ -17,3 +17,11 @@ oj.preProcessor('ngt', function() {
 oj.postProcessor('css', function() {
   return cssPrefix()
 });
+
+livereload = require('express-livereload');
+livereload(oj.server, {
+  watchDir: process.cwd() + '/source',
+  exts: ['js', 'less', 'ngt']
+})
+
+// oj.server.locals.LRScript
