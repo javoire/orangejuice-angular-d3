@@ -11,6 +11,6 @@ oj.buildPath = 'build';
 
 oj.preProcessor('ngt', function() {
   return html2js({
-    base: 'source'
+    base: oj.sourcePath
   })
 });
