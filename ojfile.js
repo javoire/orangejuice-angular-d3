@@ -2,8 +2,9 @@
 
 var oj = require('orangejuice'),
     html2js = require('gulp-html2js'),
-    jshint = require('gulp-jshint'),
-    cssPrefix = require('gulp-autoprefixer');
+    livereload = require('orangejuice-livereload');
+
+livereload(oj);
 
 oj.sourcePath = 'source';
 oj.buildPath = 'build';
@@ -14,14 +15,4 @@ oj.preProcessor('ngt', function() {
   })
 });
 
-oj.postProcessor('css', function() {
-  return cssPrefix()
-});
-
 livereload = require('express-livereload');
-livereload(oj.server, {
-  watchDir: process.cwd() + '/source',
-  exts: ['js', 'less', 'ngt']
-})
-
-// oj.server.locals.LRScript
