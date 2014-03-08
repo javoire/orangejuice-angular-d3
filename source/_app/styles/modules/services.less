@@ -1,0 +1,27 @@
+.treemap-wrapper {
+  position: relative;
+  height: 500px;
+}
+
+.root {
+  position: absolute;
+}
+
+.node {
+  .transition(background-color 0.2s);
+  font: 10px sans-serif;
+  line-height: 12px;
+  overflow: hidden;
+  position: absolute;
+  text-indent: 2px;
+  background-color: #444;
+  text-align: center;
+  font-weight: 300;
+  color: #999;
+
+  &:hover {
+    background-color: @primary-accent;
+    color: @white;
+    cursor: pointer;
+  }
+}

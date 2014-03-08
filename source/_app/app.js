@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  angular.module('app.directives', ['d3', 'Rickshaw']);
+  angular.module('app.directives', []);
 
   angular.module('app', [
     // 'ngCookies',
@@ -17,7 +17,6 @@
     '_app/views/users.ngt',
     '_app/views/donut.ngt',
     '_app/views/services.ngt',
-    '_app/views/templates/rickshaw-line.ngt',
     '_app/views/templates/d3-line.ngt',
     '_app/views/templates/menu-btn.ngt'
   ])
