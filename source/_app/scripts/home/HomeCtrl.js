@@ -5,7 +5,6 @@ angular.module('app')
     $rootScope.pageTitle = 'Summary'; // hmmm.....
 
     Companies.then(function (data) {
-      console.log('HomeCtrl got the json from factory', data);
       $scope.companies = data;
     });
   });

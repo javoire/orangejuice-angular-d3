@@ -33,6 +33,10 @@ angular.module('app.directives')
               .sticky(true)
               .value(function(d) { return d.value; });
 
+          treemap.sort(function(a, b) {
+            return a.value - b.value;
+          });
+
           var node = div.datum(data).selectAll('div')
                 .data(treemap.nodes)
                 .enter().append('div')
