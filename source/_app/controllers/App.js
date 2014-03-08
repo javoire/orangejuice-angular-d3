@@ -36,6 +36,10 @@ angular.module('app')
           title: 'Interests',
           state: 'users/interests'
         }]
+      },
+      {
+        title: 'Services',
+        state: 'services'
       }
     ];
     
