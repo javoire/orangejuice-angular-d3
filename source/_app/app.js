@@ -16,6 +16,7 @@
     '_app/views/home.ngt',
     '_app/views/users.ngt',
     '_app/views/donut.ngt',
+    '_app/views/services.ngt',
     '_app/views/templates/rickshaw-line.ngt',
     '_app/views/templates/d3-line.ngt',
     '_app/views/templates/menu-btn.ngt'
@@ -46,6 +47,11 @@
           url: '/users',
           templateUrl: '_app/views/users.ngt',
           controller: 'UsersCtrl'
+        })
+        .state('services', {
+          url: '/services',
+          templateUrl: '_app/views/services.ngt',
+          controller: 'ServicesCtrl'
         });
         // .otherwise({
         //   redirectTo: '/'

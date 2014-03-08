@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 var oj = require('orangejuice'),
-    livereload = require('orangejuice-livereload'),
-    html2js = require('gulp-html2js');
+    html2js = require('gulp-html2js'),
+    livereload = require('orangejuice-livereload');
 
 livereload(oj);
 

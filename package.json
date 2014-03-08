@@ -4,7 +4,7 @@
   "private": true,
   "devDependencies": {
     "orangejuice": "~0.1.0",
-    "orangejuice-livereload": "~0.0.1",
+    "orangejuice-livereload": "~0.1.0",
     "bower": "~1.2.2",
     "gulp-html2js": "*"
   }
