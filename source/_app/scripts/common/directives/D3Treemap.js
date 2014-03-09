@@ -9,7 +9,7 @@ angular.module('app.directives')
         source: '=',
       },
       link: function(scope, element, attrs) {
-        var container;
+        var container, data;
 
         container = element.find('.chart');
 
@@ -25,7 +25,8 @@ angular.module('app.directives')
         scope.$watch('source', function(source) {
           if (source) {
             scope.title = source.title;
-            scope.render(source.data);
+            data = source.data;
+            scope.render();
           };
         })
 
@@ -36,7 +37,7 @@ angular.module('app.directives')
         });
 
 
-        scope.render = function(data) {
+        scope.render = function() {
           if (!data) return;
 
           treemapdiv.selectAll('*').remove();
