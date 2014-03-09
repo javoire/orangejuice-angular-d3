@@ -15,7 +15,7 @@ angular.module('app.directives')
 
         svg = d3.select(container[0])
           .append('svg')
-          .attr('height', '450px');
+          .attr('height', '200px');
 
         // modularize this watch block..... elsewhere
         $window.onresize = function() {
@@ -60,7 +60,7 @@ angular.module('app.directives')
             .enter().append('circle')
               .attr('cx', function(d, i) { return x(i) } )
               .attr('cy', function(d) { return y(d[1])} )
-              .attr('r', 5)
+              .attr('r', 2)
               .attr('class', 'd3-line-circle');
         }
       }
