@@ -4,12 +4,11 @@
   angular.module('app.directives', []);
 
   angular.module('app', [
-    // 'ngCookies',
     'ui.router',
     'ngResource',
-    // 'ngSanitize',
     'ngRoute',
     'ngAnimate',
+    'jdGraphs',
     'app.directives',
     '_app/views/companies.ngt',
     '_app/views/industries.ngt',
@@ -17,8 +16,6 @@
     '_app/views/users.ngt',
     '_app/views/donut.ngt',
     '_app/views/services.ngt',
-    '_app/views/templates/d3-line.ngt',
-    '_app/views/templates/treemap.ngt',
     '_app/views/templates/menu-btn.ngt'
   ])
     .config(function ($stateProvider) {

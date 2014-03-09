@@ -1,10 +1,9 @@
 'use strict';
 
-angular.module('app.directives')
-  .directive('d3Treemap', function ($window) {
+angular.module('jdGraphs').directive('d3Treemap', function ($window) {
     return {
       restrict: 'E',
-      templateUrl: '_app/views/templates/treemap.ngt',
+      templateUrl: '_common/jdGraphs/templates/treemap.ngt',
       scope: {
         source: '=',
       },

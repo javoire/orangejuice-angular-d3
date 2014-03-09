@@ -1,10 +1,9 @@
 'use strict';
 
-angular.module('app.directives')
-  .directive('d3Line', function ($window, $timeout) {
+angular.module('jdGraphs').directive('d3Line', function ($window, $timeout) {
     return {
       restrict: 'E',
-      templateUrl: '_app/views/templates/d3-line.ngt',
+      templateUrl: '_common/jdGraphs/templates/d3-line.ngt',
       scope: {
         source: '=',
       },
