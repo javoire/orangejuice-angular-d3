@@ -1,5 +1,0 @@
-<header><h2>{{title}}</h2></header>
-<div class="viz-container">
-  <div class="chart"></div>
-  <div class="x-axis"></div>
-</div>

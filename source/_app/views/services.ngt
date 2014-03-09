@@ -1,0 +1,3 @@
+<d3-treemap class="viz-component" source="sites"></d3-treemap>
+<d3-treemap class="viz-component" source="pods"></d3-treemap>
+<d3-treemap class="viz-component" source="services"></d3-treemap>

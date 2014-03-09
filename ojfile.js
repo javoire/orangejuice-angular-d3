@@ -2,18 +2,15 @@
 
 var oj = require('orangejuice'),
     html2js = require('gulp-html2js'),
-    jshint = require('gulp-jshint'),
-    cssPrefix = require('gulp-autoprefixer');
+    livereload = require('orangejuice-livereload');
+
+livereload(oj);
 
 oj.sourcePath = 'source';
 oj.buildPath = 'build';
 
 oj.preProcessor('ngt', function() {
   return html2js({
-    base: 'source'
+    base: oj.sourcePath
   })
-});
-
-oj.postProcessor('css', function() {
-  return cssPrefix()
 });

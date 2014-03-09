@@ -1,8 +1,18 @@
+.active-border {
+  border-right: 4px solid @primary-accent;
+}
+
 .menu {
   nav {
     > ul {
       padding-top: 13px;
       > li {
+        &.active { // toplevel items...
+          > a {
+            .active-border;
+            margin-right: 0;
+          }
+        }
         > a {
           padding-top: 13px;
           padding-bottom: 13px;
@@ -11,6 +21,18 @@
     }
     ul {
       li {
+        &.active {
+          > a {
+            color: @primary-accent;
+          }
+          // ul { //subnav (shown)
+          //   // max-height: 200px; // lol, hack for the height animation to work, not awesome
+          //   // .transition(all 0.3s);
+          //   display: block;
+          //   opacity: 1;
+          // }
+        }
+
         a {
           font-size: 18px;
           display: block;
@@ -20,38 +42,32 @@
           margin-right: 4px;
 
           &:hover {
-            transition: color @transition-duration;
+            .transition(color @transition-duration);
             color: @primary-accent;
             text-decoration: none;
-          }
-
-          &.active {
-            transition: none;
-            color: @primary-accent;
-            border-right: 4px solid @primary-accent;
-            margin-right: 0;
-            // background-color: @primary-accent;
           }
         }
 
         ul { // subnav
-          border-right: 4px solid @primary-accent;
-          // background: rgba(0,0,0,0.02);
-          max-height: 200px; // lol, for the height animation to work, not awesome
+          .active-border;
+          // .transition(all 0.2s);
+          // // max-height: 0;
+          // opacity: 0;
+          display: none; // hide for now... 
           overflow: hidden;
 
-          &.ng-hide-remove {
-            transition: all ease-out 0.3s;
-          }
+          // &.ng-hide-remove {
+          //   .transition(all ease-out 0.3s);
+          // }
 
-          &.ng-hide {
-            display: block !important;
-            max-height: 0;
-          }
+          // &.ng-hide {
+          //   display: block !important;
+          //   max-height: 0;
+          // }
 
-          &.ng-hide-add, &.ng-hide-remove {
-            display: block!important;
-          }
+          // &.ng-hide-add, &.ng-hide-remove {
+          //   display: block!important;
+          // }
 
           li {
             a {
