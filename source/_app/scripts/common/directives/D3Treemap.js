@@ -1,43 +1,55 @@
 'use strict';
 
 angular.module('app.directives')
-  .directive('d3Treemap', function ($window, $timeout) {
+  .directive('d3Treemap', function ($window) {
     return {
       restrict: 'E',
-      template: '<div></div>', // houston we have a problem... this prevents it from firing link function twice
+      templateUrl: '_app/views/templates/treemap.ngt',
       scope: {
         source: '=',
       },
       link: function(scope, element, attrs) {
-        var div;
+        var container;
 
-        div = d3.select(element[0])
+        container = element.find('.chart');
+
+        var treemapdiv = d3.select(container[0])
           .append('div')
           .attr('class', 'treemap-wrapper')
           .style('height', '500px');
 
-        $div = $('.treemap-wrapper') // LOOOOOL
+        $window.onresize = function() {
+          scope.$apply();
+        };
 
         scope.$watch('source', function(source) {
-          scope.render(source);
+          if (source) {
+            scope.title = source.title;
+            scope.render(source.data);
+          };
         })
+
+        scope.$watch(function() {
+          return element.width();
+        }, function() {
+          scope.render();
+        });
+
 
         scope.render = function(data) {
           if (!data) return;
 
-          width = $div.outerWidth();
-          height = div.style('height').replace('px', '');
+          treemapdiv.selectAll('*').remove();
+
+          width = container.outerWidth();
+          height = treemapdiv.style('height').replace('px', '');
 
           var treemap = d3.layout.treemap()
               .size([width, height])
-              .sticky(true)
-              .value(function(d) { return d.value; });
+              .value(function(d) { return d.value; })
+              .sort(function(a, b) { return a.value - b.value; });
 
-          treemap.sort(function(a, b) {
-            return a.value - b.value;
-          });
-
-          var node = div.datum(data).selectAll('div')
+          var node = treemapdiv.datum(data).selectAll('div')
                 .data(treemap.nodes)
                 .enter().append('div')
                   .attr('class', function(d) {
@@ -45,7 +57,7 @@ angular.module('app.directives')
                   })
                   .call(position)
                   .text(function(d) { return (!!d.parent) ? d.name : '' });
- 
+
           function position() {
             this.style('left', function(d) { return d.x + 'px'; })
                 .style('top', function(d) { return d.y + 'px'; })

@@ -11,8 +11,6 @@ angular.module('app.directives')
       link: function(scope, element, attrs) {
         var width, height, svg, container, margin = 10, data;
 
-        console.log('d3line');
-
         container = element.find('.chart');
 
         svg = d3.select(container[0])

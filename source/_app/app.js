@@ -18,6 +18,7 @@
     '_app/views/donut.ngt',
     '_app/views/services.ngt',
     '_app/views/templates/d3-line.ngt',
+    '_app/views/templates/treemap.ngt',
     '_app/views/templates/menu-btn.ngt'
   ])
     .config(function ($stateProvider) {
