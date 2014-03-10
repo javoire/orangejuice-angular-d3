@@ -15,7 +15,7 @@
     '_app/views/home.ngt',
     '_app/views/users.ngt',
     '_app/views/donut.ngt',
-    '_app/views/services.ngt',
+    '_app/views/hosts.ngt',
     '_app/views/gdp.ngt',
     '_app/views/templates/menu-btn.ngt'
   ])
@@ -46,9 +46,9 @@
           templateUrl: '_app/views/users.ngt',
           controller: 'UsersCtrl'
         })
-        .state('services', {
-          url: '/services',
-          templateUrl: '_app/views/services.ngt',
+        .state('hosts', {
+          url: '/hosts',
+          templateUrl: '_app/views/hosts.ngt',
           controller: 'ServicesCtrl'
         })
         .state('gdp', {

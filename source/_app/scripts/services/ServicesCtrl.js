@@ -2,7 +2,7 @@
 
 angular.module('app')
   .controller('ServicesCtrl', function ($rootScope, $scope, $http) {
-    $rootScope.pageTitle = 'Services';
+    $rootScope.pageTitle = 'Hosts';
     
     $http.get('/services.json').then(function(response) {
       $scope.services = {

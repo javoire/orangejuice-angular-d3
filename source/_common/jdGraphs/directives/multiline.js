@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jdGraphs').directive('multiLine', function ($window, $http) {
+angular.module('jdGraphs').directive('jdMultiline', function ($window, $http) {
     return {
       restrict: 'E',
       templateUrl: '_common/jdGraphs/templates/d3-line.ngt',
@@ -8,25 +8,104 @@ angular.module('jdGraphs').directive('multiLine', function ($window, $http) {
         source: '=',
       },
       link: function(scope, element, attrs) {
-        var csv, xLabels, timeseriesLabels=[], w, h, x, y, ctx, canvas, Ymax, Ymin;
+        var csv, xLabels, timeseriesLabels=[], w, h, x, y, svg, ctxFg, ctxBg, canvasFg, canvasBg, Ymax, Ymin;
 
         container = $('.chart');
 
-        w = container.outerWidth();
+        w = container.innerWidth();
         h = 400;
-        m = 5;
+        m = 0;
+
+        container.height(h);
 
         // jeeeeesus christ, neither d3 nor jQuery manages to add closing tag to canvas...
-        canvas = $('<canvas><!-- //hack --></canvas>')
+        canvasFg = $('<canvas><!-- //hack --></canvas>')
           .attr('width', w)
           .attr('height', h);
 
-        container.append(canvas);
+        canvasBg = $('<canvas><!-- //hack --></canvas>')
+          .attr('width', w)
+          .attr('height', h);
 
-        ctx = canvas[0].getContext('2d');
-        ctx.strokeStyle = '#FF6E00';
+        container.append(canvasBg);
+        container.append(canvasFg);
+
+        // add SVG for axis and brushes
+        svg = d3.select(container[0])
+          .append('svg')
+          .attr('height', h);
+
+        ctxFg = canvasFg[0].getContext('2d');
+        ctxFg.strokeStyle = 'rgba(255,110,0,0.2';
+
+        ctxBg = canvasBg[0].getContext('2d');
+        ctxBg.strokeStyle = 'rgba(100,100,100,0.1';
 
         scope.title = 'Lots of GDPs yo!';
+
+        // selected lines
+        var selected;
+        // brush
+        var brush = d3.svg.brush()
+          .x(d3.scale.identity().domain([0, w]))
+          .y(d3.scale.identity().domain([0, h]))
+          // .on('brush', brushed)
+          .on('brush', brushed);
+
+        function brushed() {
+          var extents = brush.extent();
+          // find what timeseries have screen coordinates (x(), y()) within extents
+
+          selected = []; // reset§§
+          // loop over all of them and recalculate x and y for each. optimize this and cache screen cords in array instead...
+          timeseries.forEach(function(line, index) {
+            Ymax = d3.max(line, function(d) { return d; })
+            Ymin = d3.min(line, function(d) { return d; })
+            x = d3.scale.linear().domain([0, line.length-2]).range([m, w - m]);
+            y = d3.scale.linear().domain([Ymin, Ymax]).range([h - m, m]);
+
+            var match = false;
+            line.forEach(function(d, i) {
+
+              if (!!match) return;
+
+              if (
+                  x(i) > extents[0][0] && x(i) < extents[1][0] && // x delta
+                  y(d) > extents[0][1] && y(d) < extents[1][1] // y delta
+                  )
+              {
+                selected.push(line)
+                match = true;
+              }
+            });
+          });
+
+          // clear FG and draw selected ones...
+          ctxFg.clearRect(0,0,w+1,h+1);
+          selected.forEach(function(line) {
+            Ymax = d3.max(line, function(d) { return d; })
+            Ymin = d3.min(line, function(d) { return d; })
+            x = d3.scale.linear().domain([0, line.length-2]).range([m, w - m]);
+            y = d3.scale.linear().domain([Ymin, Ymax]).range([h - m, m]);
+            renderCanvasGraph(ctxFg, line, x, y);
+          })
+
+          // if no selection, redraw all fg lines
+          if (selected.length == 0) {
+            timeseries.forEach(function(line) {
+              Ymax = d3.max(line, function(d) { return d; })
+              Ymin = d3.min(line, function(d) { return d; })
+              x = d3.scale.linear().domain([0, line.length-2]).range([m, w - m]);
+              y = d3.scale.linear().domain([Ymin, Ymax]).range([h - m, m]);
+              renderCanvasGraph(ctxFg, line, x, y);
+            })
+          }
+        }
+
+        svg.append('g').append('g')
+            .attr('class', 'brush')
+            .call(brush);
+
 
         // temp, quick version, move to ctrl later
         $http.get('/gdp.csv').then(function(row) {
@@ -48,26 +127,34 @@ angular.module('jdGraphs').directive('multiLine', function ($window, $http) {
           xLabels = timeseries.splice(0, 1)[0]; // cut more stuff
           timeseriesLabels.splice(0, 1) // we don't need this oooneeee
 
+          // TEMP MAKE THIS SMALLER FOR DEV PURPOSES
+          // timeseries.splice(0, 245);
+
           // render canvas stuff!
-          timeseries.map(function(line) {
+          timeseries.forEach(function(line) {
 
             // set up domains etc
-            Ymax = d3.max(line, function(d) { ;return d; })
-            Ymin = d3.min(line, function(d) { ;return d; })
+            Ymax = d3.max(line, function(d) { return d; })
+            Ymin = d3.min(line, function(d) { return d; })
             x = d3.scale.linear().domain([0, line.length-2]).range([m, w - m]);
             y = d3.scale.linear().domain([Ymin, Ymax]).range([h - m, m]);
 
-            ctx.beginPath();
-            line.map(function(d, i){
-              if (i == 0) {
-                ctx.moveTo(x(i), y(d));
-              } else { 
-                ctx.lineTo(x(i), y(d));
-              }
-            })
-            ctx.stroke();
+            renderCanvasGraph(ctxFg, line, x, y);
+            renderCanvasGraph(ctxBg, line, x, y);
           });
         })
+
+        function renderCanvasGraph(ctx, line, x, y) {
+          ctx.beginPath();
+          line.forEach(function(d, i){
+            if (i == 0) {
+              ctx.moveTo(x(i), y(d));
+            } else {
+              ctx.lineTo(x(i), y(d));
+            }
+          })
+          ctx.stroke();
+        }
       }
     }
   });

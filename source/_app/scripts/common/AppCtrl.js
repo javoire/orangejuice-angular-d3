@@ -38,8 +38,8 @@ angular.module('app')
         }]
       },
       {
-        title: 'Services',
-        state: 'services'
+        title: 'Hosts',
+        state: 'hosts'
       },
       {
         title: 'GDP',
