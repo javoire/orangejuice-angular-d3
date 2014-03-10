@@ -35,7 +35,6 @@ angular.module('jdGraphs').directive('d3Treemap', function ($window) {
           scope.render();
         });
 
-
         scope.render = function() {
           if (!data) return;
 

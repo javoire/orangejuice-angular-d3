@@ -40,6 +40,10 @@ angular.module('app')
       {
         title: 'Services',
         state: 'services'
+      },
+      {
+        title: 'GDP',
+        state: 'gdp'
       }
     ];
     

@@ -16,6 +16,7 @@
     '_app/views/users.ngt',
     '_app/views/donut.ngt',
     '_app/views/services.ngt',
+    '_app/views/gdp.ngt',
     '_app/views/templates/menu-btn.ngt'
   ])
     .config(function ($stateProvider) {
@@ -49,6 +50,11 @@
           url: '/services',
           templateUrl: '_app/views/services.ngt',
           controller: 'ServicesCtrl'
+        })
+        .state('gdp', {
+          url: '/gdp',
+          templateUrl: '_app/views/gdp.ngt',
+          controller: 'GdpCtrl'
         });
         // .otherwise({
         //   redirectTo: '/'
