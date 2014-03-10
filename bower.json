@@ -17,6 +17,7 @@
     "angular-mocks": "~1.2.0",
     "angular-scenario": "~1.2.0",
     "lesshat": "~2.0.15",
-    "angular-ui-router": "0.2.8-bowratic-tedium"
+    "angular-ui-router": "0.2.8-bowratic-tedium",
+    "d3js": "*"
   }
 }
