@@ -57,12 +57,11 @@ angular.module('jdGraphs').directive('jdMultiline', function ($window, $http) {
           // find what timeseries have screen coordinates (x(), y()) within extents
 
           selected = []; // reset§§
-          // loop over all of them and recalculate x and y for each. optimize this and cache screen cords in array instead...
+          // loop over all of them and recalculate x and y for each. 
           timeseries.forEach(function(line, index) {
-            Ymax = d3.max(line, function(d) { return d; })
-            Ymin = d3.min(line, function(d) { return d; })
-            x = d3.scale.linear().domain([0, line.length-2]).range([m, w - m]);
-            y = d3.scale.linear().domain([Ymin, Ymax]).range([h - m, m]);
+            // optimize this and cache screen cords in array instead of recalcing all the time
+            x = getX(line);
+            y = getY(line);
 
             var match = false;
             line.forEach(function(d, i) {
@@ -83,20 +82,16 @@ angular.module('jdGraphs').directive('jdMultiline', function ($window, $http) {
           // clear FG and draw selected ones...
           ctxFg.clearRect(0,0,w+1,h+1);
           selected.forEach(function(line) {
-            Ymax = d3.max(line, function(d) { return d; })
-            Ymin = d3.min(line, function(d) { return d; })
-            x = d3.scale.linear().domain([0, line.length-2]).range([m, w - m]);
-            y = d3.scale.linear().domain([Ymin, Ymax]).range([h - m, m]);
+            x = getX(line);
+            y = getY(line);
             renderCanvasGraph(ctxFg, line, x, y);
           })
 
           // if no selection, redraw all fg lines
           if (selected.length == 0) {
             timeseries.forEach(function(line) {
-              Ymax = d3.max(line, function(d) { return d; })
-              Ymin = d3.min(line, function(d) { return d; })
-              x = d3.scale.linear().domain([0, line.length-2]).range([m, w - m]);
-              y = d3.scale.linear().domain([Ymin, Ymax]).range([h - m, m]);
+              x = getX(line);
+              y = getY(line);
               renderCanvasGraph(ctxFg, line, x, y);
             })
           }
@@ -106,6 +101,15 @@ angular.module('jdGraphs').directive('jdMultiline', function ($window, $http) {
             .attr('class', 'brush')
             .call(brush);
 
+        function getX(line) {
+          return d3.scale.linear().domain([0, line.length-2]).range([m, w - m]);
+        }
+
+        function getY(line) {
+          Ymax = d3.max(line, function(d) { return d; })
+          Ymin = d3.min(line, function(d) { return d; })
+          return d3.scale.linear().domain([Ymin, Ymax]).range([h - m, m]);
+        }
 
         // temp, quick version, move to ctrl later
         $http.get('/gdp.csv').then(function(row) {
@@ -134,10 +138,8 @@ angular.module('jdGraphs').directive('jdMultiline', function ($window, $http) {
           timeseries.forEach(function(line) {
 
             // set up domains etc
-            Ymax = d3.max(line, function(d) { return d; })
-            Ymin = d3.min(line, function(d) { return d; })
-            x = d3.scale.linear().domain([0, line.length-2]).range([m, w - m]);
-            y = d3.scale.linear().domain([Ymin, Ymax]).range([h - m, m]);
+            x = getX(line);
+            y = getY(line);
 
             renderCanvasGraph(ctxFg, line, x, y);
             renderCanvasGraph(ctxBg, line, x, y);
