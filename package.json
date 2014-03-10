@@ -1,20 +1,11 @@
 {
-  "name": "angular-project-template",
-  "version": "0.0.0",
+  "name": "oj-angular-d3",
+  "version": "0.0.1",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:jpettersson/orangejuice-ng-template.git"
-  },
   "devDependencies": {
     "orangejuice": "~0.1.0",
+    "orangejuice-livereload": "~0.1.0",
     "bower": "~1.2.2",
-    "karma": "~0.10.0",
-    "karma-jasmine": "~0.1.0",
-    "karma-chrome-launcher": "*",
-    "gulp-html2js": "*",
-    "css-prefix": "0.0.2",
-    "gulp-autoprefixer": "0.0.6",
-    "gulp-jshint": "~1.4.2"
+    "gulp-html2js": "*"
   }
 }

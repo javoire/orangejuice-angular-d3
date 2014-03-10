@@ -1,4 +1,4 @@
-<header><h2>{{title}}</h2></header>
+<header><h3 class="component-title">{{title}}</h3></header>
 <div class="viz-container">
   <div class="chart"></div>
   <div class="x-axis"></div>

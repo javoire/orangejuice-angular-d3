@@ -1,7 +1,7 @@
 {
   "name": "oj-angular-d3",
   "version": "0.0.0",
-  "dependencies": {
+  "devDependencies": {
     "angular": "~1.2.13",
     "angular-resource": "~1.2.0",
     "angular-cookies": "~1.2.0",
@@ -13,11 +13,10 @@
     "jquery": "~1.10.2",
     "sass-bootstrap": "~3.0.0",
     "reset-css": "~2.0.20110126",
-    "rickshaw": "~1.4.6"
-  },
-  "devDependencies": {
+    "rickshaw": "~1.4.6",
     "angular-mocks": "~1.2.0",
     "angular-scenario": "~1.2.0",
-    "jquery": "~2.1.0"
+    "lesshat": "~2.0.15",
+    "angular-ui-router": "0.2.8-bowratic-tedium"
   }
 }

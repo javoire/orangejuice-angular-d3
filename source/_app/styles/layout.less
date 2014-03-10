@@ -3,7 +3,7 @@
 @menu-speed: 0.2s;
 
 .main, .menu {
-  transition: width @menu-speed, left @menu-speed;
+  .transition(width @menu-speed, left @menu-speed);
 }
 
 .menu {
@@ -23,7 +23,7 @@
   }
 
   nav {
-    transition: opacity @menu-speed;
+    .transition(opacity @menu-speed);
   }
 }
 
@@ -34,15 +34,24 @@
   right: 0;
   left: 0;
   overflow: scroll;
+  opacity: 1;
 
   &.menu-maximized {
     .main-header {
       margin-left: @menu-width;
     }
+    .main-content {
+      opacity: 0.5;
+    }
+  }
+
+  .main-content {
+    .transition(opacity @menu-speed);
+    opacity: 1;
   }
 
   .main-header {
-    transition: margin-left @menu-speed;
+    .transition(margin-left @menu-speed);
   }
   // .content-inner {
   //   box-sizing: border-box;
